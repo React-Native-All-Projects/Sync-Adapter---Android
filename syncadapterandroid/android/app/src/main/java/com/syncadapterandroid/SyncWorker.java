@@ -1,0 +1,39 @@
+package com.syncadapterandroid;
+import android.content.Context;
+import android.os.Bundle;
+
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
+import android.util.Log;
+import android.content.Intent;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.bridge.Arguments;
+
+public class SyncWorker extends Worker {
+    private Context context;
+
+    public SyncWorker(Context context, WorkerParameters workerParams) {
+        super(context, workerParams);
+        this.context = context;
+    }
+
+    @Override
+    public Result doWork() {
+        if(isStopped()){
+            Intent service = new Intent(this.context, MainService.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("State", "Off");
+            service.putExtras(bundle);
+
+            this.context.startService(service);
+        }else{
+            Intent service = new Intent(this.context, MainService.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("State", "On");
+            service.putExtras(bundle);
+
+            this.context.startService(service);
+        }
+        return Result.success();
+    }
+}

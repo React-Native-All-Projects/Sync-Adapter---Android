@@ -15,10 +15,6 @@ const Layout = () =>{
   const onStartService = async () => {
     await ModuleApp.startService();
   }
-  // const onEndService = async () => {
-  //   console.log('Run Service');
-  //   await ModuleApp.stopService();
-  // }
   const onStartBackgroundService = async () => {    
     await ModuleApp.startBackgroundWork();
   }

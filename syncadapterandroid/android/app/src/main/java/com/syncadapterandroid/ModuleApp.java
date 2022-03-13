@@ -24,7 +24,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 
 public class ModuleApp extends ReactContextBaseJavaModule {
-    private ReactApplicationContext context;
+    public static ReactApplicationContext context;
     private PeriodicWorkRequest workRequest;
     public String ModuleName = "ModuleApp";
 
@@ -45,23 +45,7 @@ public class ModuleApp extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return ModuleName;
-    }
-    
-    @ReactMethod
-    public void getNameReactMethod(Promise promise) {
-        promise.resolve(ModuleName);
-    }
-    @ReactMethod
-    public void add(Double a, Double b, Promise promise) {
-        Double sum = a + b;
-        promise.resolve(sum);
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-    }
-    
+    } 
 
     @ReactMethod
     public void startService(Promise promise) {
@@ -75,14 +59,8 @@ public class ModuleApp extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void stopService(Promise promise) {
-        Intent service = new Intent(this.context, MainService.class);
-        Bundle bundle = new Bundle();
-
-        bundle.putString("State", "stop");
-        service.putExtras(bundle);
-
-        this.context.startService(service);
+    public void StartEventListenerService(Promise promise) {
+        this.context.startService(new Intent(this.context, EventListenerService.class));
     }
 
     @ReactMethod
@@ -98,6 +76,10 @@ public class ModuleApp extends ReactContextBaseJavaModule {
     void registerReceiverNetworkChange (){
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         this.context.registerReceiver(Receiver, filter);
+    }
+
+    public static ReactApplicationContext getContext(){
+        return context;
     }
 
 }

@@ -23,5 +23,6 @@
       </activity>
       <service android:name="com.syncadapterandroid.NetworkService" />
       <service android:name="com.syncadapterandroid.MainService" />
+      <service android:name="com.syncadapterandroid.EventListenerService" />
     </application>
 </manifest>

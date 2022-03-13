@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import React, { useEffect, useState } from "react";
-import { Image, NativeModules, Text, TouchableOpacity, View } from "react-native";
+import { DeviceEventEmitter, Image, NativeModules, Text, TouchableOpacity, View } from "react-native";
 import layoutStyle from "./layout.style";
 
 const Layout = () =>{
@@ -8,10 +8,15 @@ const Layout = () =>{
   const [model,setModel] = useState({
     mainServiceCount:'0',
     NetworkServiceCountOn:'0',
-    NetworkServiceCountOff:'0'
+    NetworkServiceCountOff:'0',
   });
 
+  const [eventListenerCount , setEventListenerCount] = useState(0);
+
   const { ModuleApp } = NativeModules;
+  const StartEventListenerService = async () => {
+    await ModuleApp.StartEventListenerService();
+  }
   const onStartService = async () => {
     await ModuleApp.startService();
   }
@@ -30,11 +35,16 @@ const Layout = () =>{
       var NetworkServiceOff = await AsyncStorage.getItem('NetworkServiceCount-Off') ?? '0';
 
       setModel({
+        ...model,
         mainServiceCount:mainServiceCount,
         NetworkServiceCountOn:NetworkServiceOn,
-        NetworkServiceCountOff:NetworkServiceOff
+        NetworkServiceCountOff:NetworkServiceOff,
       })
     },2000)
+
+    DeviceEventEmitter.addListener('EventListenerService', () => {
+      setEventListenerCount(oldValue=>oldValue+1);
+    });
   },[])
 
   return (
@@ -90,6 +100,29 @@ const Layout = () =>{
                   ><Text style={[layoutStyle.text]}>Stop</Text></TouchableOpacity>
                   <TouchableOpacity onPress={onStartBackgroundService}
                   style={[layoutStyle.mainButtons,{backgroundColor:'#00ff1db0'}]}
+                  ><Text style={[layoutStyle.text]}>Start</Text></TouchableOpacity>
+                </View>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      <View style={[layoutStyle.sectionContainer,{backgroundColor:'#00ff0a66'}]}>
+        <View style={[layoutStyle.selfContainer]}>
+          <View style={[layoutStyle.textContainer]}>
+            <Text style={[layoutStyle.text]}>Count</Text>
+            <Text style={[layoutStyle.text]}>{eventListenerCount}</Text>
+          </View>
+          <View style={[layoutStyle.itemContainer]}>
+            <View style={{alignItems:'center'}}>
+              <Text style={[layoutStyle.text]}>Event Listener</Text>
+              <Image 
+                source={require('../../assets/images/work-process.png')}
+                style={[layoutStyle.image]}
+              />
+                <View style={{width:'100%'}}>
+                  <TouchableOpacity onPress={StartEventListenerService}
+                  style={[layoutStyle.mainButtons,{margin:0,backgroundColor:'#00ff1db0',alignItems:'center'}]}
                   ><Text style={[layoutStyle.text]}>Start</Text></TouchableOpacity>
                 </View>
             </View>

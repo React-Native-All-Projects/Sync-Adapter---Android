@@ -19,18 +19,15 @@ public class Receiver extends BroadcastReceiver {
                 ConnectivityManager.EXTRA_NO_CONNECTIVITY, false
             );
 
+            Intent service = new Intent(context, NetworkService.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("Params", intent.getAction());
             if (noConnectivity) {
-                Intent service = new Intent(context, NetworkService.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("Params", intent.getAction());
                 bundle.putString("NetworkState", "Off");
                 service.putExtras(bundle);
 
                 context.startService(service);
             } else {
-                Intent service = new Intent(context, NetworkService.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("Params", intent.getAction());
                 bundle.putString("NetworkState", "On");
                 service.putExtras(bundle);
 

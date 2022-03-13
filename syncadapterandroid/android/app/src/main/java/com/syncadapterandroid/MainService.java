@@ -23,14 +23,4 @@ public class MainService extends HeadlessJsTaskService {
     }
     return null;
   }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -79,7 +79,7 @@ public class ModuleApp extends ReactContextBaseJavaModule {
         Intent service = new Intent(this.context, MainService.class);
         Bundle bundle = new Bundle();
 
-        bundle.putString("State", "start");
+        bundle.putString("State", "stop");
         service.putExtras(bundle);
 
         this.context.startService(service);

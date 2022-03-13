@@ -19,21 +19,12 @@ public class SyncWorker extends Worker {
 
     @Override
     public Result doWork() {
-        if(isStopped()){
             Intent service = new Intent(this.context, MainService.class);
             Bundle bundle = new Bundle();
-            bundle.putString("State", "Off");
+            bundle.putString("State", "start");
             service.putExtras(bundle);
 
             this.context.startService(service);
-        }else{
-            Intent service = new Intent(this.context, MainService.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("State", "On");
-            service.putExtras(bundle);
-
-            this.context.startService(service);
-        }
         return Result.success();
     }
 }

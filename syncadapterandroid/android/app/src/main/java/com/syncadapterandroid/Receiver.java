@@ -14,7 +14,7 @@ public class Receiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
             boolean noConnectivity = intent.getBooleanExtra(
                 ConnectivityManager.EXTRA_NO_CONNECTIVITY, false
             );

@@ -12,7 +12,8 @@ const Layout = () =>{
   });
 
   const [eventListenerCount , setEventListenerCount] = useState(0);
-
+  const [eventListenerContactsCount , setEventListenerContactsCount] = useState(0);
+  
   const { ModuleApp } = NativeModules;
   const StartEventListenerService = async () => {
     await ModuleApp.StartEventListenerService();
@@ -26,7 +27,11 @@ const Layout = () =>{
   
   const onStopBackgroundService = async () => {
     await ModuleApp.stopBackgroundWork();
-  }  
+  }
+  
+  const onRegisterContentObserver = async () =>{
+    await ModuleApp.RegisterContentObserver();
+  }
 
   useEffect(()=>{
     setInterval(async()=>{
@@ -44,6 +49,12 @@ const Layout = () =>{
 
     DeviceEventEmitter.addListener('EventListenerService', () => {
       setEventListenerCount(oldValue=>oldValue+1);
+    });
+
+    DeviceEventEmitter.addListener('EventListenerContacts', (Listener:any) => {
+      console.log('Listener: ' , Listener);
+      
+      setEventListenerContactsCount(oldValue=>oldValue+1);
     });
   },[])
 
@@ -74,7 +85,7 @@ const Layout = () =>{
         </View>
       </View>
 
-      <View style={[layoutStyle.sectionContainer,{backgroundColor:'#ff000047'}]}>
+      <View style={[layoutStyle.sectionContainer,{backgroundColor:'#ff000047',flex:0.3}]}>
         <View style={[layoutStyle.selfContainer]}>
         <View style={[layoutStyle.textContainer]}>
             <Text style={[layoutStyle.text]}>Count</Text>
@@ -107,7 +118,7 @@ const Layout = () =>{
         </View>
       </View>
 
-      <View style={[layoutStyle.sectionContainer,{backgroundColor:'#00ff0a66'}]}>
+      <View style={[layoutStyle.sectionContainer,{backgroundColor:'#ff69004a',flex:0.3}]}>
         <View style={[layoutStyle.selfContainer]}>
           <View style={[layoutStyle.textContainer]}>
             <Text style={[layoutStyle.text]}>Count</Text>
@@ -122,6 +133,29 @@ const Layout = () =>{
               />
                 <View style={{width:'100%'}}>
                   <TouchableOpacity onPress={StartEventListenerService}
+                  style={[layoutStyle.mainButtons,{margin:0,backgroundColor:'#00ff1db0',alignItems:'center'}]}
+                  ><Text style={[layoutStyle.text]}>Start</Text></TouchableOpacity>
+                </View>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      <View style={[layoutStyle.sectionContainer,{backgroundColor:'#00ff0a66',flex:0.3}]}>
+        <View style={[layoutStyle.selfContainer]}>
+          <View style={[layoutStyle.textContainer]}>
+            <Text style={[layoutStyle.text]}>Count</Text>
+            <Text style={[layoutStyle.text]}>{eventListenerContactsCount}</Text>
+          </View>
+          <View style={[layoutStyle.itemContainer]}>
+            <View style={{alignItems:'center'}}>
+              <Text style={[layoutStyle.text]}>Event Listener (Contacts)</Text>
+              <Image 
+                source={require('../../assets/images/contact-book.png')}
+                style={[layoutStyle.image]}
+              />
+                <View style={{width:'100%'}}>
+                  <TouchableOpacity onPress={onRegisterContentObserver}
                   style={[layoutStyle.mainButtons,{margin:0,backgroundColor:'#00ff1db0',alignItems:'center'}]}
                   ><Text style={[layoutStyle.text]}>Start</Text></TouchableOpacity>
                 </View>

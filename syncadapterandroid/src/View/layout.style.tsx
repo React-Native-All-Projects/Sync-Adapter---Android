@@ -20,7 +20,7 @@ const layoutStyle = StyleSheet.create({
     mainButtons:{
         margin:10,borderWidth:0.3,padding:5,borderRadius:4
     },
-    testButton:{margin:0,height:100,width:60
+    testButton:{margin:0,height:60,width:60
         ,backgroundColor:'#c5ff0040',alignItems:'center'
         ,justifyContent:'center'}
 })

@@ -22,6 +22,9 @@ import androidx.work.Constraints;
 
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.provider.ContactsContract;
+import com.syncadapterandroid.ContactsContentObserver;
+import android.os.Handler;
 
 public class ModuleApp extends ReactContextBaseJavaModule {
     public static ReactApplicationContext context;
@@ -59,6 +62,14 @@ public class ModuleApp extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void RegisterContentObserver(Promise promise) {
+        context.getContentResolver().registerContentObserver(
+            ContactsContract.Data.CONTENT_URI //used to identify resource
+            , true //include all changes or not
+            , new ContactsContentObserver(new Handler(),this.context) //your ContentObserver
+            );
+    }
+    @ReactMethod
     public void StartEventListenerService(Promise promise) {
         this.context.startService(new Intent(this.context, EventListenerService.class));
     }
@@ -74,7 +85,8 @@ public class ModuleApp extends ReactContextBaseJavaModule {
 
 
     void registerReceiverNetworkChange (){
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         this.context.registerReceiver(Receiver, filter);
     }
 

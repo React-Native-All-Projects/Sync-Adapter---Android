@@ -6,7 +6,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import android.os.Handler;
 import android.content.Context;
 import com.facebook.react.bridge.ReactApplicationContext;
-import android.os.Bundle;
 import android.os.Binder;
 
 public class EventListenerService extends Service {  

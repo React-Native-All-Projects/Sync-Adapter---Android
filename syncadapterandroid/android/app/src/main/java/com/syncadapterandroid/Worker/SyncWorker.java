@@ -1,13 +1,10 @@
 package com.syncadapterandroid;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-import android.util.Log;
 import android.content.Intent;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.react.bridge.Arguments;
 
 public class SyncWorker extends Worker {
     private Context context;

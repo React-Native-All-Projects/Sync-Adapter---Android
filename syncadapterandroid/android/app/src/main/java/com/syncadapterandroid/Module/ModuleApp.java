@@ -1,25 +1,18 @@
 package com.syncadapterandroid;
-import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import java.util.Map;
-import java.util.HashMap;
 import com.facebook.react.bridge.Promise;
 import android.content.Intent;
 import android.os.Bundle;
 import android.content.Context;
-import android.util.Log;
 import androidx.work.PeriodicWorkRequest;
 import java.util.concurrent.TimeUnit;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.WorkManager;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.react.bridge.Arguments;
 import androidx.work.Constraints;
-
-
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.provider.ContactsContract;

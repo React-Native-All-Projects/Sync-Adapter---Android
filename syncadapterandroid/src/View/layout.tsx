@@ -19,14 +19,14 @@ const Layout = () =>{
     await ModuleApp.StartEventListenerService();
   }
   const onStartService = async () => {
-    await ModuleApp.startService();
+    await ModuleApp.RunService();
   }
   const onStartBackgroundService = async () => {    
-    await ModuleApp.startBackgroundWork();
+    await ModuleApp.StartBackgroundWork();
   }
   
   const onStopBackgroundService = async () => {
-    await ModuleApp.stopBackgroundWork();
+    await ModuleApp.StopBackgroundWork();
   }
   
   const onRegisterContentObserver = async () =>{
@@ -40,7 +40,6 @@ const Layout = () =>{
       var NetworkServiceOff = await AsyncStorage.getItem('NetworkServiceCount-Off') ?? '0';
 
       setModel({
-        ...model,
         mainServiceCount:mainServiceCount,
         NetworkServiceCountOn:NetworkServiceOn,
         NetworkServiceCountOff:NetworkServiceOff,

@@ -10,8 +10,6 @@ module.exports = async (taskData:any) => {
         await AsyncStorage.setItem('NetworkServiceCount-Off',(count+1).toString());
     }
     console.log('Network Service : ' , taskData);
-    // do stuff
-    return;
 };
 
 

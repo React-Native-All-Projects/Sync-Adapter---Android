@@ -27,7 +27,7 @@ public class EventListenerService extends Service {
     }
     
     private Runnable runnableCode = new Runnable() {
-        ReactApplicationContext context = ModuleApp.getContext();
+        ReactApplicationContext context = ModuleApp.GetContext();
         @Override
         public void run() {
             context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("EventListenerService",null);

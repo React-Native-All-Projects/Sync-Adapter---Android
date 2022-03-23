@@ -22,13 +22,13 @@ import android.os.Handler;
 public class ModuleApp extends ReactContextBaseJavaModule {
     public static ReactApplicationContext context;
     private PeriodicWorkRequest workRequest;
-    public String ModuleName = "ModuleApp";
+    private String ModuleName = "ModuleApp";
 
     Constraints constraints = new Constraints.Builder()
         .setRequiresBatteryNotLow(true)
         .build();
 
-    Receiver Receiver = new Receiver();
+    NetworkReceiver Receiver = new NetworkReceiver();
     ModuleApp(ReactApplicationContext context) {
         super(context);
         this.context = context;
@@ -36,7 +36,7 @@ public class ModuleApp extends ReactContextBaseJavaModule {
         .setConstraints(constraints)
         .build();
 
-        registerReceiverNetworkChange();
+        RegisterReceiverNetworkChange();
     }
     @Override
     public String getName() {
@@ -44,7 +44,7 @@ public class ModuleApp extends ReactContextBaseJavaModule {
     } 
 
     @ReactMethod
-    public void startService(Promise promise) {
+    public void RunService(Promise promise) {
         Intent service = new Intent(this.context, MainService.class);
         Bundle bundle = new Bundle();
 
@@ -68,22 +68,22 @@ public class ModuleApp extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startBackgroundWork() {
+    public void StartBackgroundWork() {
         WorkManager.getInstance(this.context).enqueueUniquePeriodicWork("SyncWorker", ExistingPeriodicWorkPolicy.KEEP,workRequest);
     }
     @ReactMethod
-    public void stopBackgroundWork() {
+    public void StopBackgroundWork() {
         WorkManager.getInstance(this.context).cancelUniqueWork("SyncWorker");
     }
 
 
-    void registerReceiverNetworkChange (){
+    void RegisterReceiverNetworkChange (){
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         this.context.registerReceiver(Receiver, filter);
     }
 
-    public static ReactApplicationContext getContext(){
+    public static ReactApplicationContext GetContext(){
         return context;
     }
 

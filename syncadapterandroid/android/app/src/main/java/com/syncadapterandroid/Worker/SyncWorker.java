@@ -16,12 +16,12 @@ public class SyncWorker extends Worker {
 
     @Override
     public Result doWork() {
-            Intent service = new Intent(this.context, MainService.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("State", "start");
-            service.putExtras(bundle);
+        Intent service = new Intent(this.context, MainService.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("State", "start");
+        service.putExtras(bundle);
 
-            this.context.startService(service);
+        this.context.startService(service);
         return Result.success();
     }
 }

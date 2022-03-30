@@ -32,7 +32,7 @@ public class ModuleApp extends ReactContextBaseJavaModule {
     ModuleApp(ReactApplicationContext context) {
         super(context);
         this.context = context;
-        workRequest = new PeriodicWorkRequest.Builder(SyncWorker.class, 20, TimeUnit.MINUTES)
+        workRequest = new PeriodicWorkRequest.Builder(SyncWorker.class, 15, TimeUnit.MINUTES)
         .setConstraints(constraints)
         .build();
 

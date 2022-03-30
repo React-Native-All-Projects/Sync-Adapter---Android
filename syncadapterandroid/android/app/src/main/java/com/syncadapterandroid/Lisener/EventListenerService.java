@@ -21,10 +21,6 @@ public class EventListenerService extends Service {
     public void onCreate() {  
         this.handler.post(this.runnableCode);
     }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
     
     private Runnable runnableCode = new Runnable() {
         ReactApplicationContext context = ModuleApp.GetContext();

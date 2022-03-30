@@ -1,0 +1,110 @@
+Module : 
+ReactContextBaseJavaModule :
+gives access to the ReactApplicationContext
+*deffirent between ReactApplicationContext  and Context :
+Context : application instance is tied to the lifecycle of the application
+ReactApplicationContext :  
+*abstract class ReactContextBaseJavaModule
+Base class for Catalyst native modules that require access to the ReactContext instance.
+
+*ReactApplicationContext :
+which is useful for Native Modules that need to hook into activity lifecycle methods.
+
+*getName() : 
+All Java native modules in Android need to implement the getName() method. 
+The native module can then be accessed in JavaScript using its name.
+***that name use to access in react native.
+
+ReactPackage :
+*should override two methods : (createViewManagers,createNativeModules)
+*createViewManagers : 
+let you add and remove child views
+return ViewManager type 
+*createNativeModules : 
+need to add your native module to a ReactPackage and register the ReactPackage with React Native.
+return NativeModule 
+
+BroadcastReceiver :
+*onReceive :
+can get all details in intent but it's deffrint from action to other
+
+
+
+Worker : 
+Worker classes are instantiated at runtime.
+*WorkManager :
+WorkManager the recommended library for persistent work.
+*WorkerParameters:
+is class 
+getInputData().getString("Key"); use to get data from params by key
+*PeriodicWorkRequest : 
+is class To repeating work.
+Periodic work has a minimum interval of 15 minutes.
+PeriodicWorkRequest.Builder() is Builder for PeriodicWorkRequests.
+steps : 
+1-) create worker
+2-) register worker(create PeriodicWorkRequest,create Constraints,Builder,
+*ExistingPeriodicWorkPolicy (keep,replace):
+is enum type : ExistingPeriodicWorkPolicy
+
+
+ContentObserver :
+is class
+Receives call backs for changes to content.
+*deliverSelfNotifications() :
+Returns true if this observer is interested receiving self-change notifications.
+RCTDeviceEventEmitter use to signal to JavaScript a reminder that a calendar event from the native Android
+
+
+services :
+Intent : class to be invoked.
+Bundle : Android Bundle is used to pass data between activities.
+
+HeadlessJsTaskService: 
+Headless JS is a way to run tasks in JavaScript while your app is in the background.
+LinearCountingRetryPolicy :  that allows you to specify a maximum number of retries with a fixed delay between each attempt. 
+Handler : A handler allows you to post runnables to execute on a specific thread. , sequentially runs tasks.
+If you need a single background thread that starts a loop capable of running code or processing messages in the order that they arrive, this is the tool for the job.
+
+Thread : A Thread has state your runnable 
+Runnable : Runnable separates code that needs to run asynchronously. , runnable can run on a threadpool, or a dedicated thread.
+IBinder : Base interface for a remotable object, the core part of a lightweight remote procedure call mechanism designed for high performance when performing in-process and cross-process calls. 
+Binder : Binder is an Android-specific interprocess communication mechanism, and remote method invocation system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+********************************
+broadcast :
+// Broadcast Receiver Still Running after app close - Android ? By putting your BroadcastReceiver in your Manifest.
+// https://stackoverflow.com/questions/16429354/broadcast-receiver-still-running-after-app-close-android
+
+service :
+*HeadlessJs:
+HeadlessJsRetryPolicy : By default, the headless JS task will not perform any retries. In order to do so, you need to create a HeadlessJsRetryPolicy and throw a specific Error.
+https://stackoverflow.com/questions/16651009/android-service-stops-when-app-is-closed
+

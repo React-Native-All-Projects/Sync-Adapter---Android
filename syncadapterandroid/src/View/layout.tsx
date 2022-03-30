@@ -7,8 +7,8 @@ const Layout = () =>{
   
   const [model,setModel] = useState({
     mainServiceCount:'0',
-    NetworkServiceCountOn:'0',
-    NetworkServiceCountOff:'0',
+    networkServiceCountOn:'0',
+    networkServiceCountOff:'0',
   });
 
   const [eventListenerCount , setEventListenerCount] = useState(0);
@@ -35,14 +35,14 @@ const Layout = () =>{
 
   useEffect(()=>{
     setInterval(async()=>{
-      var mainServiceCount = await AsyncStorage.getItem('mainServiceCount') ?? '0';
-      var NetworkServiceOn = await AsyncStorage.getItem('NetworkServiceCount-On') ?? '0';
-      var NetworkServiceOff = await AsyncStorage.getItem('NetworkServiceCount-Off') ?? '0';
+      var mainServiceCount = await AsyncStorage.getItem('MainServiceCount') ?? '0';
+      var networkServiceOn = await AsyncStorage.getItem('NetworkServiceCount-On') ?? '0';
+      var networkServiceOff = await AsyncStorage.getItem('NetworkServiceCount-Off') ?? '0';
 
       setModel({
         mainServiceCount:mainServiceCount,
-        NetworkServiceCountOn:NetworkServiceOn,
-        NetworkServiceCountOff:NetworkServiceOff,
+        networkServiceCountOn:networkServiceOn,
+        networkServiceCountOff:networkServiceOff,
       })
     },2000)
 
@@ -50,8 +50,8 @@ const Layout = () =>{
       setEventListenerCount(oldValue=>oldValue+1);
     });
 
-    DeviceEventEmitter.addListener('EventListenerContacts', (Listener:any) => {
-      console.log('Listener: ' , Listener);
+    DeviceEventEmitter.addListener('EventListenerContacts', (params:any) => {
+      console.log('params: ' , params);
       
       setEventListenerContactsCount(oldValue=>oldValue+1);
     });
@@ -66,11 +66,11 @@ const Layout = () =>{
         <View style={[layoutStyle.selfContainer]}>
           <View style={[layoutStyle.textContainer]}>
             <Text style={[layoutStyle.text]}>On</Text>
-            <Text style={[layoutStyle.text]}>{model.NetworkServiceCountOn}</Text>
+            <Text style={[layoutStyle.text]}>{model.networkServiceCountOn}</Text>
           </View>
           <View style={[layoutStyle.textContainer]}>
             <Text style={[layoutStyle.text]}>Off</Text>
-            <Text style={[layoutStyle.text]}>{model.NetworkServiceCountOff}</Text>
+            <Text style={[layoutStyle.text]}>{model.networkServiceCountOff}</Text>
           </View>
           <View style={[layoutStyle.itemContainer]}>
             <View>

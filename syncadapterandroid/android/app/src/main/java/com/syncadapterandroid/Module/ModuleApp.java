@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.provider.ContactsContract;
 import com.syncadapterandroid.ContactsContentObserver;
 import android.os.Handler;
+import android.media.AudioManager;
 
 public class ModuleApp extends ReactContextBaseJavaModule {
     public static ReactApplicationContext context;
@@ -81,6 +82,12 @@ public class ModuleApp extends ReactContextBaseJavaModule {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         this.context.registerReceiver(Receiver, filter);
+    }
+
+    @ReactMethod
+    public void isMusicActive(Promise promise) {
+        AudioManager manager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        promise.resolve(manager.isMusicActive());
     }
 
     public static ReactApplicationContext GetContext(){

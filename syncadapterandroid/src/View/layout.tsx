@@ -13,6 +13,7 @@ const Layout = () =>{
 
   const [eventListenerCount , setEventListenerCount] = useState(0);
   const [eventListenerContactsCount , setEventListenerContactsCount] = useState(0);
+  const [isThereMusic , setIsThereMusic] = useState(false);
   
   const { ModuleApp } = NativeModules;
   const StartEventListenerService = async () => {
@@ -31,6 +32,11 @@ const Layout = () =>{
   
   const onRegisterContentObserver = async () =>{
     await ModuleApp.RegisterContentObserver();
+  }
+
+  const isMusicActive = async () =>{
+    var result = await ModuleApp.isMusicActive();
+    setIsThereMusic(result);
   }
 
   useEffect(()=>{
@@ -61,6 +67,29 @@ const Layout = () =>{
     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
       <View style={{flex:0.2}}></View>
       <View style={{flex:0.2}}><Text style={[layoutStyle.title]}>Sync Adapter For Android</Text></View>
+
+      <View style={[layoutStyle.sectionContainer,{backgroundColor:'#fff00073'}]}>
+        <View style={[layoutStyle.selfContainer]}>
+          <View style={[layoutStyle.textContainer]}>
+            <Text style={[layoutStyle.text]}>check</Text>
+            <TouchableOpacity onPress={isMusicActive}
+                  style={[layoutStyle.mainButtons,{margin:0,backgroundColor:'#00ff1db0',alignItems:'center'}]}
+                  ><Text style={[layoutStyle.text]}>is Music Active</Text></TouchableOpacity>
+          </View>
+          <View style={[layoutStyle.textContainer]}>
+            <Text style={[layoutStyle.text]}>{`${isThereMusic}`}</Text>
+          </View>
+          <View style={[layoutStyle.itemContainer]}>
+            <View>
+              <Text style={[layoutStyle.text]}>volume</Text>
+              <Image 
+                source={require('../../assets/images/volume.png')}
+                style={[layoutStyle.image]}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
 
       <View style={[layoutStyle.sectionContainer,{backgroundColor:'#003cff47'}]}>
         <View style={[layoutStyle.selfContainer]}>

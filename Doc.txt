@@ -108,3 +108,10 @@ service :
 HeadlessJsRetryPolicy : By default, the headless JS task will not perform any retries. In order to do so, you need to create a HeadlessJsRetryPolicy and throw a specific Error.
 https://stackoverflow.com/questions/16651009/android-service-stops-when-app-is-closed
 
+
+
+
+
+*** what is difference between DeviceEventEmitter and handless js ?
+DeviceEventEmitter : 
+

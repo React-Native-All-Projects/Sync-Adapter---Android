@@ -86,8 +86,20 @@ public class ModuleApp extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void isMusicActive(Promise promise) {
-        AudioManager manager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        promise.resolve(manager.isMusicActive());
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        promise.resolve(audioManager.isMusicActive());
+    }
+
+    @ReactMethod
+    public void StopAudio() {
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.requestAudioFocus(null,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+    }
+
+    @ReactMethod
+    public void StartAudio() {
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.abandonAudioFocus(null);    
     }
 
     public static ReactApplicationContext GetContext(){

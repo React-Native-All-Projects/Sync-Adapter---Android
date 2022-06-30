@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DeviceEventEmitter, Image, NativeModules, Text, TouchableOpacity, View } from "react-native";
 import layoutStyle from "./layout.style";
-
+import SystemSetting from 'react-native-system-setting';
 const Layout = () =>{
   
   const [model,setModel] = useState({
@@ -39,6 +39,13 @@ const Layout = () =>{
     setIsThereMusic(result);
   }
 
+  const StopAudio = async () =>{
+    await ModuleApp.StopAudio();
+  }
+  const StartAudio = async () =>{
+    await ModuleApp.StartAudio();
+  }
+
   useEffect(()=>{
     setInterval(async()=>{
       var mainServiceCount = await AsyncStorage.getItem('MainServiceCount') ?? '0';
@@ -61,7 +68,18 @@ const Layout = () =>{
       
       setEventListenerContactsCount(oldValue=>oldValue+1);
     });
+    getVolume();
   },[])
+
+
+
+  //Audio Setting
+  const getVolume = () => {
+    SystemSetting.getVolume().then((volume)=>{
+      console.log('Current volume is ' + volume);
+    });
+  }
+
 
   return (
     <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -75,6 +93,12 @@ const Layout = () =>{
             <TouchableOpacity onPress={isMusicActive}
                   style={[layoutStyle.mainButtons,{margin:0,backgroundColor:'#00ff1db0',alignItems:'center'}]}
                   ><Text style={[layoutStyle.text]}>is Music Active</Text></TouchableOpacity>
+            <TouchableOpacity onPress={StopAudio}
+            style={[layoutStyle.mainButtons,{margin:0,backgroundColor:'#de2700',alignItems:'center'}]}
+            ><Text style={[layoutStyle.text]}>Stop Audio</Text></TouchableOpacity>
+            <TouchableOpacity onPress={StartAudio}
+            style={[layoutStyle.mainButtons,{margin:0,backgroundColor:'green',alignItems:'center'}]}
+            ><Text style={[layoutStyle.text]}>Start Audio</Text></TouchableOpacity>
           </View>
           <View style={[layoutStyle.textContainer]}>
             <Text style={[layoutStyle.text]}>{`${isThereMusic}`}</Text>
